@@ -56,9 +56,100 @@ def evaluate_signal(payload):
         f"Received payload: {payload}"
     )
 
-    # -----------------------------
+    validation = validate_payload(payload)
+
+    if not validation["valid"]:
+
+        return {
+            "allowed": False,
+            "reason": "invalid_payload"
+        }
+
+    classified = classify_strategy(payload)
+
+    if not classified:
+
+        return {
+            "allowed": False,
+            "reason": "no_strategy"
+        }
+
+    signal = payload.get("signal")
+
+    if not can_send_alert(signal):
+
+        return {
+            "allowed": False,
+            "reason": "cooldown_active"
+        }
+
+    payload["volume_spike"] = (
+        classified["volume_spike"]
+    )
+
+    market_state = detect_market_state(
+        payload
+    )
+
+    classified["trend"] = market_state
+
+    confidence = calculate_confidence(
+        classified
+    )
+
+    if confidence < Config.MIN_CONFIDENCE:
+
+        return {
+            "allowed": False,
+            "reason": "low_confidence"
+        }
+
+    market_bias = (
+        "Bullish"
+        if "bullish" in market_state
+        else "Bearish"
+    )
+
+    volume_state = (
+        "Strong"
+        if classified["volume_spike"]
+        else "Moderate"
+    )
+
+    vwma_state = (
+        "Above"
+        if classified["above_vwma"]
+        else "Below"
+    )
+
+    message = build_message(
+        signal=signal,
+        strategy=classified["strategy"],
+        price=payload.get("price"),
+        confidence=confidence,
+        market_state=market_state,
+        volume_state=volume_state,
+        vwma_state=vwma_state
+    )
+
+    result = {
+        "allowed": True,
+        "signal_type": signal,
+        "price": payload.get("price"),
+        "confidence": confidence,
+        "market_bias": market_bias,
+        "message": message,
+        "market_state": market_state,
+        "strategy": classified["strategy"]
+    }
+
+    return result
+
+    logger.info(
+        f"Received payload: {payload}"
+    )
+
     # Validate payload
-    # -----------------------------
     validation = validate_payload(payload)
 
     if not validation["valid"]:
@@ -72,9 +163,7 @@ def evaluate_signal(payload):
             "reason": "invalid_payload"
         }
 
-    # -----------------------------
-    # Strategy classification
-    # -----------------------------
+    # Classify strategy
     classified = classify_strategy(payload)
 
     if not classified:
@@ -90,9 +179,7 @@ def evaluate_signal(payload):
 
     signal = payload.get("signal")
 
-    # -----------------------------
-    # Cooldown check
-    # -----------------------------
+    # Cooldown
     if not can_send_alert(signal):
 
         logger.info(
@@ -104,9 +191,7 @@ def evaluate_signal(payload):
             "reason": "cooldown_active"
         }
 
-    # -----------------------------
     # Market state
-    # -----------------------------
     payload["volume_spike"] = (
         classified["volume_spike"]
     )
@@ -115,18 +200,14 @@ def evaluate_signal(payload):
         payload
     )
 
-    # -----------------------------
-    # Confidence calculation
-    # -----------------------------
+    # Confidence
     classified["trend"] = market_state
 
     confidence = calculate_confidence(
         classified
     )
 
-    # -----------------------------
     # Confidence filter
-    # -----------------------------
     if confidence < Config.MIN_CONFIDENCE:
 
         logger.info(
@@ -138,36 +219,28 @@ def evaluate_signal(payload):
             "reason": "low_confidence"
         }
 
-    # -----------------------------
     # Market bias
-    # -----------------------------
     market_bias = (
         "Bullish"
         if "bullish" in market_state
         else "Bearish"
     )
 
-    # -----------------------------
     # Volume state
-    # -----------------------------
     volume_state = (
         "Strong"
         if classified["volume_spike"]
         else "Moderate"
     )
 
-    # -----------------------------
     # VWMA state
-    # -----------------------------
     vwma_state = (
         "Above"
         if classified["above_vwma"]
         else "Below"
     )
 
-    # -----------------------------
-    # Build Telegram message
-    # -----------------------------
+    # Telegram message
     message = build_message(
         signal=signal,
         strategy=classified["strategy"],

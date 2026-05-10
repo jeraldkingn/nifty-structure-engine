@@ -5,12 +5,8 @@ from app.core.rules import (
     evaluate_signal
 )
 
-from app.services.telegram_service import (
-    send_telegram
-)
-
-from app.services.supabase_service import (
-    save_alert
+from app.services.alert_service import (
+    process_alert
 )
 
 from app.utils.logger import logger
@@ -28,13 +24,8 @@ def process(payload):
 
         return
 
-    
+    process_alert(result)
 
-    from app.services.alert_service import (
-    process_alert
-    )
-
-    process_alert(payload)
     logger.info("Processing completed")
 
 
@@ -44,7 +35,26 @@ if __name__ == "__main__":
 
         raw_payload = sys.argv[1]
 
-        payload = json.loads(raw_payload)
+        print(raw_payload)
+
+        try:
+
+            payload = json.loads(raw_payload)
+
+        except json.JSONDecodeError:
+
+            # PowerShell fallback parser
+            fixed = (
+                raw_payload
+                .replace("{", '{"')
+                .replace(":", '":"')
+                .replace(",", '","')
+                .replace("}", '"}')
+            )
+
+            fixed = fixed.replace('""', '"')
+
+            payload = json.loads(fixed)
 
         process(payload)
 
