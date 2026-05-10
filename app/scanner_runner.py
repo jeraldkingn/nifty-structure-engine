@@ -29,11 +29,11 @@ def is_market_hours():
 
 def run_scanner():
 
-    if not is_market_hours():
+    # if not is_market_hours():
 
-        print("Outside market hours")
+    #     print("Outside market hours")
 
-        return
+    #     return
 
     try:
 
