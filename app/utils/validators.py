@@ -1,4 +1,4 @@
-required_fields = [
+REQUIRED_FIELDS = [
     "signal",
     "price",
     "volume",
