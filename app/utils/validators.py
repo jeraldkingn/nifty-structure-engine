@@ -1,7 +1,7 @@
 REQUIRED_FIELDS = [
     "signal",
     "price",
-    "symbol"
+    "symbol",
 ]
 
 

@@ -18,7 +18,9 @@ def process_alert(result):
             "price": result["price"],
             "confidence": result["confidence"],
             "market_bias": result["market_bias"],
-            "message": result["message"]
+            "message": result["message"],
+            "stop_loss": result["stop_loss"],
+            "target": result["target"]
         }
 
         save_alert(alert_data)
