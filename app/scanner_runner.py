@@ -15,9 +15,16 @@ def run_scanner():
 
     df = calculate_indicators(df)
 
-    signal = detect_signal(df)
+    # signal = detect_signal(df)
 
-    if signal:
+    signal = {
+        "signal": "BREAKOUT",
+        "price": 24220,
+        "volume": 150000,
+        "vwma": 24190
+    }
+
+    if True:
 
         process_alert(signal)
 
