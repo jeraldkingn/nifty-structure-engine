@@ -22,7 +22,8 @@ def run_scanner():
         "price": 24220,
         "volume": 150000,
         "vwma": 24190,
-        "confidence": 75
+        "confidence": 75,
+        "market_bias": "BULLISH"
     }
 
     if True:

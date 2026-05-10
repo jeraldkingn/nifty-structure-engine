@@ -59,7 +59,8 @@ def detect_signal(df):
             "price": float(latest["Close"]),
             "volume": float(latest["Volume"]),
             "vwma": float(latest["VWMA"]),
-            "confidence": 75
+            "confidence": 75,
+            "market_bias": "BULLISH"
         }
 
     if breakdown:
@@ -69,7 +70,8 @@ def detect_signal(df):
             "price": float(latest["Close"]),
             "volume": float(latest["Volume"]),
             "vwma": float(latest["VWMA"]),
-            "confidence": 75
+            "confidence": 75,
+            "market_bias": "BEARISH"
         }
 
     return None
