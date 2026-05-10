@@ -1,7 +1,13 @@
-REQUIRED_FIELDS = [
+required_fields = [
     "signal",
     "price",
-    "symbol",
+    "volume",
+    "vwma",
+    "ema20",
+    "ema50",
+    "atr",
+    "stop_loss",
+    "target"
 ]
 
 
