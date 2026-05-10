@@ -14,7 +14,7 @@ def process_alert(result):
     try:
 
         alert_data = {
-            "signal_type": result["signal_type"],
+            "signal": result["signal"],
             "price": result["price"],
             "confidence": result["confidence"],
             "market_bias": result["market_bias"],

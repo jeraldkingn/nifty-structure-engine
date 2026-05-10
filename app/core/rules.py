@@ -134,7 +134,7 @@ def evaluate_signal(payload):
 
     result = {
         "allowed": True,
-        "signal_type": signal,
+        "signal": signal,
         "price": payload.get("price"),
         "confidence": confidence,
         "market_bias": market_bias,
@@ -257,7 +257,7 @@ def evaluate_signal(payload):
 
     return {
         "allowed": True,
-        "signal_type": signal,
+        "signal": signal,
         "price": payload.get("price"),
         "confidence": confidence,
         "market_bias": market_bias,

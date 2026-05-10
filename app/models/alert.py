@@ -2,14 +2,14 @@ class Alert:
 
     def __init__(
         self,
-        signal_type,
+        signal,
         price,
         confidence,
         market_bias,
         message
     ):
 
-        self.signal_type = signal_type
+        self.signal = signal
         self.price = price
         self.confidence = confidence
         self.market_bias = market_bias
@@ -18,7 +18,7 @@ class Alert:
     def to_dict(self):
 
         return {
-            "signal_type": self.signal_type,
+            "signal": self.signal,
             "price": self.price,
             "confidence": self.confidence,
             "market_bias": self.market_bias,

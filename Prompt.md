@@ -162,7 +162,7 @@ Stores important trading alerts.
 Columns:
 - id
 - created_at
-- signal_type
+- signal
 - price
 - confidence
 - market_bias
