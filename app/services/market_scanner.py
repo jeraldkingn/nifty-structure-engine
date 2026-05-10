@@ -60,7 +60,8 @@ def detect_signal(df):
             "volume": float(latest["Volume"]),
             "vwma": float(latest["VWMA"]),
             "confidence": 75,
-            "market_bias": "BULLISH"
+            "market_bias": "BULLISH",
+            "message": "NIFTY breakout above intraday resistance with strong volume"
         }
 
     if breakdown:
@@ -71,7 +72,8 @@ def detect_signal(df):
             "volume": float(latest["Volume"]),
             "vwma": float(latest["VWMA"]),
             "confidence": 75,
-            "market_bias": "BEARISH"
+            "market_bias": "BEARISH",
+            "message": "NIFTY breakdown below intraday support with strong volume"
         }
 
     return None

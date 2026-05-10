@@ -23,7 +23,8 @@ def run_scanner():
         "volume": 150000,
         "vwma": 24190,
         "confidence": 75,
-        "market_bias": "BULLISH"
+        "market_bias": "BULLISH",
+        "message": "NIFTY breakout above intraday resistance with strong volume"
     }
 
     if True:
