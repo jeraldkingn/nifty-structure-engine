@@ -58,7 +58,8 @@ def detect_signal(df):
             "signal": "BREAKOUT",
             "price": float(latest["Close"]),
             "volume": float(latest["Volume"]),
-            "vwma": float(latest["VWMA"])
+            "vwma": float(latest["VWMA"]),
+            "confidence": 75
         }
 
     if breakdown:
@@ -67,7 +68,8 @@ def detect_signal(df):
             "signal": "BREAKDOWN",
             "price": float(latest["Close"]),
             "volume": float(latest["Volume"]),
-            "vwma": float(latest["VWMA"])
+            "vwma": float(latest["VWMA"]),
+            "confidence": 75
         }
 
     return None

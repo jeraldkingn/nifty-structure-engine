@@ -21,7 +21,8 @@ def run_scanner():
         "signal": "BREAKOUT",
         "price": 24220,
         "volume": 150000,
-        "vwma": 24190
+        "vwma": 24190,
+        "confidence": 75
     }
 
     if True:
