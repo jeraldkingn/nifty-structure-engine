@@ -47,19 +47,22 @@ def run_scanner():
 
         df = calculate_indicators(df)
 
-        # signal = detect_signal(df)
-        signal = {
-            "signal": "BREAKOUT",
-            "price": 24220,
-            "volume": 150000,
-            "avg_volume": 90000,
-            "vwma": 24190,
-            "ema20": 24200,
-            "ema50": 24150,
-            "atr": 40,
-            "stop_loss": 24150,
-            "target": 24360
-        }
+        signal = detect_signal(df)
+
+        # Test data
+        
+        # signal = {
+        #     "signal": "BREAKOUT",
+        #     "price": 24220,
+        #     "volume": 150000,
+        #     "avg_volume": 90000,
+        #     "vwma": 24190,
+        #     "ema20": 24200,
+        #     "ema50": 24150,
+        #     "atr": 40,
+        #     "stop_loss": 24150,
+        #     "target": 24360
+        # }
 
         if signal:
 

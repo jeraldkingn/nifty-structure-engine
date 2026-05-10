@@ -2,6 +2,7 @@ REQUIRED_FIELDS = [
     "signal",
     "price",
     "volume",
+    "avg_volume",
     "vwma",
     "ema20",
     "ema50",
