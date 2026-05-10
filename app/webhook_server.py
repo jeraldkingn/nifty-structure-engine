@@ -1,9 +1,19 @@
 from fastapi import FastAPI
-from fastapi import Request
+from pydantic import BaseModel
 
 from app.main import process
 
 app = FastAPI()
+
+
+class WebhookPayload(BaseModel):
+
+    signal: str
+    price: str
+    vwma: str | None = None
+    volume: str | None = None
+    avg_volume: str | None = None
+    symbol: str | None = None
 
 
 @app.get("/")
@@ -15,13 +25,13 @@ async def root():
 
 
 @app.post("/webhook")
-async def webhook(request: Request):
+async def webhook(payload: WebhookPayload):
 
-    payload = await request.json()
+    data = payload.dict()
 
-    process(payload)
+    process(data)
 
     return {
         "status": "success",
-        "received": payload
+        "received": data
     }
