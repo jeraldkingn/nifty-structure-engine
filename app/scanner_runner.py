@@ -52,6 +52,7 @@ def run_scanner():
             "signal": "BREAKOUT",
             "price": 24220,
             "volume": 150000,
+            "avg_volume": 90000,
             "vwma": 24190,
             "ema20": 24200,
             "ema50": 24150,
